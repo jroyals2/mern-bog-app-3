@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const app = express();
+const creatureController = require('./controllers/creatures.js')
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI, {useMongoClient: true}); //mongodb://localhost/idea-board
 
@@ -21,7 +22,7 @@ app.use(express.static(__dirname + '/client/build/'));
 app.get('/', (req,res) => {
     res.sendFile(__dirname + '/client/build/index.html')
       })
-
+app.use('/api/creatures', creatureController)
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
 console.log("Magic happening on port " + PORT);
